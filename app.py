@@ -47,7 +47,9 @@ def recommend(movie):
     distance = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda vector:vector[1])
     recommend_movie=[]
     recommend_poster=[]
-    for i in distance[1:6]:
+    for i in distance[1:10]:
+        if(movies.iloc[i[0]].genre != "Action"):
+            continue;
         movies_id=movies.iloc[i[0]].id
         recommend_movie.append(movies.iloc[i[0]].title)
         recommend_poster.append(fetch_poster(movies_id))
@@ -57,7 +59,7 @@ def recommend(movie):
 
 if st.button("Show Recommend"):
     movie_name, movie_poster = recommend(selectvalue)
-    col1,col2,col3,col4,col5=st.columns(5)
+    col1,col2,col3,col4,col5,col6,col7,col8=st.columns(8)
     with col1:
         st.text(movie_name[0])
         st.image(movie_poster[0])
@@ -73,3 +75,12 @@ if st.button("Show Recommend"):
     with col5:
         st.text(movie_name[4])
         st.image(movie_poster[4])
+    with col6:
+        st.text(movie_name[5])
+        st.image(movie_poster[5])
+    with col7:
+        st.text(movie_name[6])
+        st.image(movie_poster[6])
+    with col8:
+        st.text(movie_name[7])
+        st.image(movie_poster[7])
